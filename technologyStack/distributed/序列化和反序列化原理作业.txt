@@ -1,0 +1,23 @@
+1、什么是序列化，Java是如何实现序列化的
+将对象转换为可传输或者存储的数据，java是通过实现Serializable接口，然后通过IO操作实现序列化。
+
+2、如果一个子类实现了序列化，父类没有实现，那么父类中的成员变量能否被序列化？
+不能被序列化
+
+3、你有了解过哪些序列化技术？以及他们之间的差异性？
+java原生、json、xml、protobuf、hessian
+数据大小：protobuf > json > hessian  > java原生 > xml
+
+4、transient是干嘛的？
+被修饰的字段默认不会被持久化
+
+5、有什么方法能够绕过transient的机制。这个实现机制的原理是什么？
+可以在实体类中定义readObject 和writeObject方法，IO操作的时候，通过反射获取对象中这两个方法，如果存在则调用，最终将字段持久化
+
+6、serializable的安全性如何保证？7.有没有了解过protobuf，它的序列化实现原理是什么？
+实现serializable接口之后，可以生成一个serialVersionUID，序列化和反序列化的时候会对比serialVersionUID，如果不一致，则报错。
+protobuf是通过T-L-V 的方式，字符因为不超过一个字节，采用ascll编码，而正数则采用varint的方式，负数是先使用zigzag将负数转换成无符号，再使用varint的方式。
+
+7、serialVersionUID的 作 用 是 什 么 ？ 如 果 我 不 设 置serialVersionUID,有没有问题？
+反序列化的时候会对比序列化时的serialVersionUID，如果不一致，则反序列化失败，如果不设置serialVersionUID，程序会根据类信息自动生成serialVersionUID，
+但是当类被更改之后，serialVersionUID也会变化，反序列化就会失败
