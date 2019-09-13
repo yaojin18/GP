@@ -1,0 +1,6 @@
+1、resultType（属性）和resultMap（标签引用）的区别？
+	resultType是当前sql操作的返回类型，可用于直接映射，用于单表的结果映射，resultMap不能直接映射，需要自定义映射关系，用于表关联结果映射
+2、collection和association的区别？
+	collection是一对多的关系，association是一对一和多对一的关系
+3、Statement和PreparedStatement的区别？
+	Statement支持不带参数的sql，且sql未进行编译，当sql执行一次就返回结果时效率高于PreparedStatement，PreparedStatement支持带参数的sql，且会进行编译，可防止sql注入
