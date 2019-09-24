@@ -1,0 +1,6 @@
+1.工厂方法：SqlSessionFactory创建默认的DefaultSqlSession
+2.建造者模式：SqlSessionFactoryBuilder构造SqlSessionFactory
+3.责任链模式：插件的处理
+4.单例模式：SqlSessionFactory
+5.适配器模式：创建SimpleExecutor，ResuseExecutor,BatchExecutor
+6.模板方法模式：抽象方法BaseExecutor，然后子类SimpleExecutor，ResuseExecutor,BatchExecutor继承BaseExecutor
