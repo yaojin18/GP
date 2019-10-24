@@ -1,0 +1,9 @@
+1、Happens-before的几种规则
+    线程内执行的每个操作，都保证happen-before后面的操作，这就保证了基本的程序顺序规则
+    对于volatile修饰的属性，对它的写操作，保证happen-before在随后对该变量的读取操作
+    对于一个锁的解锁操作，保证happen-before加锁操作
+    线程内部的操作，保证happen-before其他Thread.join()的线程等
+
+2、不能，volatile只能解决有序性、可见性问题，不能解决原子性问题，
+
+3、需要解决有序性、可见性问题的时候需要
