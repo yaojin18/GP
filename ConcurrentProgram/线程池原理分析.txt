@@ -1,0 +1,31 @@
+1. 为什么要使用线程池？
+   使用线程解决业务耗时久问题，使用线程池是为了减少线程的创建和销毁对cpu的占用，提供cpu的使用率；提高响应速度；
+
+2.Executors提供的四种线程池:newSingleThreadExecutor,newFixedThreadPool,newCachedThreadPool,newScheduledThreadPool ，请说出他们的区别以及应用场景
+   newFixedThreadPool：用于负载比较大的服务器，为了资源的合理利用，需要限制当前线程的数量  
+   newSingleThreadExecutor：创建一个单线程的线程池，用唯一的工作线程执行任务，保证所有的任务都是指定的顺序，如FIFO或者LIFO
+   newCachedThreadPool：无核心线程，有空闲线程就去取任务执行，若60秒内未取得任务，则被回收
+   newScheduledThreadPool：创建一个指定线程数量的线程池，带有延迟和周期性执行任务的功能，类似定时器。
+
+3. 线程池有哪几种工作队列？
+   ArrayBlockingQueue：基于数组的先进先出队列，此队列创建时必须指定大小；
+   LinkedBlockingQueue：基于链表的先进先出队列，如果创建时没有指定大小，则设置为Integer.MAX_VALUE;
+   SynchronousQueue：不会保存任务，直接创建一个线程来执行任务
+
+4. 线程池默认的拒绝策略有哪些
+   AbortPolicy：默认的策略，抛异常；
+   CallerRunsPolicy：用调用者所在的线程来执行任务；
+   DiscardOldestPolicy：丢弃阻塞队列中靠前的任务，并执行当前任务；
+   DiscardPolicy：直接丢弃任务；
+   也可以实现RejectedExecutionHandler接口，自定义策略。
+
+5. 如何理解有界队列和无解队列
+   任务队列设置的长度，是否为Integer.MAX_VALUE
+
+6. 线程池是如何实现线程回收的？ 以及核心线程能不能被回收？
+    创建的线程如果在getTask方法中未取到任务，就会被回收；
+
+7. FutureTask是什么
+8. Thread.sleep(0)的作用是什么
+9. 如果提交任务时，线程池队列已满，这时会发生什么
+10.如果一个线程池中还有任务没有执行完成，这个时候是否允许被外部中断
