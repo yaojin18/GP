@@ -1,0 +1,14 @@
+1.基于你对springboot的理解描述一下什么是springboot
+springboot是一个服务于框架的框架，基于约定优于配置的原则，可以使用少量的配置就完成项目搭建
+
+2.约定优于配置指的是什么？
+resources目录下固定的META-INFO目录，固定的文件名称，且key都是固定的，只有value是开发者自定义
+
+3.@SpringBootApplication由哪几个注解组成，这几个注解分别表示什么作用
+componentScan：扫描对应目录下的文件
+configuration：定义Javabean
+enableautoconfiguration：开启自动装配
+
+4.springboot自动装配的实现原理
+
+5.spring中的spi机制的原理是什么？
