@@ -10,5 +10,16 @@ configuration：定义Javabean
 enableautoconfiguration：开启自动装配
 
 4.springboot自动装配的实现原理
+（1）SpringApplication.run(AppConfig.class,args);执行流程中有refreshContext(context);这句话.
+（2）refreshContext(context);内部会解析我们的配置类上的标签.实现自动装配功能的注解
+EnableAutoConfiguration注解会自动解析configuration注解中配置的bean，也会通过import导入默认配置好的bean；
+1、ImportSelector,重写selectImports方法，从元数据annotationMetadata中进行筛选，返回的是一个String数组，String是类的全路径名称。
+2、ImportBeanDefinitionRegistar，重写registerBeanDefinitions方法，注册Bean，具体操作是创建一个包装Bean的RootBeanDefinition对象，然后注册，注册代码是
+beanDefinitionRegistry.registerBeanDefinition(beanName,beanDefinition)；
+beanName默认是类的首字母小写。
 
 5.spring中的spi机制的原理是什么？
+SPI全称Service Provider Interface，在java中是用来被第三方实现或实现的一套API
+springboot的spi机制，具体的原理是在resouces/META-INF目录下建spring.factories(路径和文件名不能变)文件，里面配置key-value的形式，拓展新的配置类，key是注解类的全路径，value是配置类的全路径。例如：
+
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.gupao.springboot.CoreConfig
