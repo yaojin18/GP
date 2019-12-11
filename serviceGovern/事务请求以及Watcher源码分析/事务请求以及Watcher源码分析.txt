@@ -1,0 +1,6 @@
+1.watcher为什么只实现一次监听，如何实现持久监听
+         服务器需要保存watch监听对应得path和NIOServerCnxn数据，如果所有的数据都一直保存，对zookeeper的内存消耗很大，
+因此在执行一次watcher之后，会将对应得watcher移除，如果需要持久监听，则可以在watcher回调的接口中重新注册。
+
+2.分析watcher的实现原理
+
