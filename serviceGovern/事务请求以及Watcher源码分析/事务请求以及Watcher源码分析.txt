@@ -3,4 +3,9 @@
 因此在执行一次watcher之后，会将对应得watcher移除，如果需要持久监听，则可以在watcher回调的接口中重新注册。
 
 2.分析watcher的实现原理
+        客户端在调用getData或者exists等方法时，会传入是否增加watcher，入参为true时，watch为当前实现Watch接口的实例，
+客户端传递数据给服务器时head信息会携带操作类型，request中会携带（path=/path，watch=true）,服务器端会根据watch的值
+判断时候保存NIOServerCnxn到watch列表，最后响应客户端，客户端将对应的watcher根据类型，存入到dataWatches、existWatches
+、childWatches中，下次操作对应节点的时候，服务器端就会根据对应的path，查询对应的watcher列表，并移除watcher，通过查询
+的watcher列表去调用客户端发送通知，客户端获取到上次存入的watcher，并进行回调。
 
