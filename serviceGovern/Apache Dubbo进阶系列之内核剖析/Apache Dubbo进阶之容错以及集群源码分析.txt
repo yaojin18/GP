@@ -7,6 +7,8 @@
 创建对应的Invoker类，如FailoverClusterInvoker。当引用接口调用方法时，就会触发对应的Invoker中的invoke方法。
 
 4、Dubbo协议默认最大传输的数据量是多少？
+     在dubbo-protocol中有个payload属性，限制最大数据为8M
+
 5、Dubbo消费端是如何动态感知到服务的变化以及做出调整的
      消费端注册了provider的监听，当服务提供者发生变化时，会触发监听，通过RegistryDirectory.notify方法会更新invokers
 
