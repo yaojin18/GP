@@ -1,0 +1,29 @@
+kafka学完以后，必须要能够知道以下的问题
+ kafka中分区副本，是否支持读写分离，为什么不支持？
+          不支持，首先kafka的读写都是在leader副本上操作的，kafka作为一个高并发，高吞吐量消息中间件，生产者发送消息给kafka之后，
+kafka会返回一个ack确认，ack有三种类型
+1：只需要leader副本将消息记录到log中 
+-1：所有的isr列表中的leader副本和follower副本将消息记录到log中
+0：生产者发送消息后，不需要kafka确认
+正是因为生产者的ack确认机制，造成leader副本和follower副本的数据是不同步的，且follower副本只做数据同步。
+
+ consumer是否可以指定消费某个分区？
+消费者分区策略：范围分区，轮询分区，粘性分区，可以
+
+ consumer的数量和分区数量有什么关联？
+分区数应该是consumer的数量倍数关系
+
+ kafka的分区副本最大能设置多少？副本之间的数据同步是如何实现的？如果存在延迟比较大的副本，是否会导致同步的性能下降？
+follower副本会向leader副本发送featch请求，leader副本会维护一个Isr列表，如果follower副本和leader副本差异较大，则会踢出isr
+
+ kafka的数据持久化策略
+    将消息写入到log中，在server.properties中会配置每个log文件的大小，如果超过就写入一个新文件，且文件名为上一个文件的offset值，
+文件名为20位，不足就补0.
+
+ producer如何最大化确保消息发送到broker上不被丢失
+producer的ack策略设置为-1，则可以保证isr列表的broker都收到该消息
+
+ 消费者和分区之间如何实现负载均衡，如果消费者增加或者减少呢？
+消费者和分区发生变化会触发reblance
+
+ kafka事务消息的保证机制是什么样的？
